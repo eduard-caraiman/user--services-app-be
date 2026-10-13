@@ -4,6 +4,7 @@ using Microsoft.OpenApi;
 using users_service.Database;
 using users_service.Filters;
 using users_service.Users.Repositories;
+using users_service.Users.Requests;
 using users_service.Users.Service;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,9 +17,11 @@ builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "Users API", Version = "v1" });
 });
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
-builder.Services.AddScoped(typeof(ValidationFilter<>));
-
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<FluentValidationFilter<CreateUserRequest>>();
+    options.Filters.Add<FluentValidationFilter<UpdateUserRequest>>();
+});
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();

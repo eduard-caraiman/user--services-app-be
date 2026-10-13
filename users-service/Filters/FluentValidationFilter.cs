@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace users_service.Filters;
 
-public class ValidationFilter<TRequest> : IAsyncActionFilter
+public class FluentValidationFilter<TRequest> : IAsyncActionFilter
 {
     private readonly IValidator<TRequest> _validator;
 
-    public ValidationFilter(IValidator<TRequest> validator)
+    public FluentValidationFilter(IValidator<TRequest> validator)
     {
         _validator = validator;
     }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using users_service.Filters;
 using users_service.Users.Requests;
 using users_service.Users.Responses;
 using users_service.Users.Service;
@@ -58,7 +57,6 @@ public class UsersController : ControllerBase
     /// </summary>
     /// <returns>Return the new created User</returns>
     [HttpPost]
-    [ServiceFilter(typeof(ValidationFilter<CreateUserRequest>))]
     [ProducesResponseType(typeof(GetUserResponse), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -75,7 +73,6 @@ public class UsersController : ControllerBase
     /// </summary>
     /// <returns>Return the updated User</returns>
     [HttpPut("{userId}")]
-    [ServiceFilter(typeof(ValidationFilter<UpdateUserRequest>))]
     [ProducesResponseType(typeof(GetUserResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
